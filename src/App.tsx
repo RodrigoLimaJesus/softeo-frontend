@@ -1,5 +1,11 @@
-function App() {
-  return <div>App</div>;
-}
+import Header from './components/header';
+import Patients from './components/patients';
 
-export default App;
+export default function App() {
+  return (
+    <div>
+      <Header />
+      <Patients />
+    </div>
+  );
+}
