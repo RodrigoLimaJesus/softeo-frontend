@@ -1,6 +1,6 @@
 import { MdInfoOutline } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../../../../../context/appContext';
+import { useAppContext } from '../../../context/appContext';
 
 export default function ClientList() {
   const { allClients } = useAppContext();
@@ -13,7 +13,7 @@ export default function ClientList() {
           <th>#</th>
           <th>Nome</th>
           <th className="hidden">Pendências</th>
-          <th>Detalhes</th>
+          <th className="text-center">Detalhes</th>
         </tr>
       </thead>
 
@@ -29,11 +29,8 @@ export default function ClientList() {
                 <span className="bg-green-500 p-1 rounded-lg">Não</span>
               )}
             </td>
-            <td>
-              <button
-                className="p-3"
-                onClick={() => navigate(`/client/${client.id}`)}
-              >
+            <td className="text-center text-lg">
+              <button onClick={() => navigate(`/client/${client.id}`)}>
                 <MdInfoOutline />
               </button>
             </td>

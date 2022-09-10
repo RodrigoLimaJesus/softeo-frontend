@@ -1,4 +1,4 @@
-import Clients from './components/clients';
+import Clients from '../../components/clients';
 
 export default function Home() {
   return (

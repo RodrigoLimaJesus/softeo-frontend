@@ -12,3 +12,20 @@ export const getAllClients = async (): Promise<IClient[]> => {
     return [];
   }
 };
+
+export const getClientById = async (
+  id: string | undefined,
+): Promise<IClient | {}> => {
+  if (id) {
+    try {
+      const response = await fetch(`${BASE_URL}/client/${id}`);
+      const client = await response.json();
+      return client;
+    } catch (error) {
+      console.log(error);
+      return {};
+    }
+  } else {
+    return {};
+  }
+};

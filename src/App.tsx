@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import Clients from './components/clients';
 import Header from './components/header';
 import SideBar from './components/sideBar';
 import ClientDetails from './pages/clientDetails';
@@ -15,6 +16,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/client/:id" element={<ClientDetails />} />
+            <Route path="/client" element={<Clients />} />
           </Routes>
         </div>
       </div>
