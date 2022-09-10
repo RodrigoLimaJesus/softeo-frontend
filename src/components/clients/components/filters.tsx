@@ -60,14 +60,14 @@ export default function Filters({
 
       <td className="hidden md:table-cell">
         <input
-          placeholder="Email..."
+          placeholder="E-mail..."
           className="p-1 my-2 border border-black rounded-md"
           value={emailFilter}
           onChange={(e) => setEmailFilter(e.target.value)}
         />
       </td>
 
-      <td>
+      <td className="hidden lg:table-cell">
         <input
           placeholder="Telefone..."
           className="p-1 my-2 border border-black rounded-md"

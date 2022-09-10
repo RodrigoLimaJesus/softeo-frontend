@@ -16,7 +16,7 @@ export default function ClientList() {
         <tr className="text-left">
           <th className="p-2">#</th>
           <th>Nome</th>
-          <th className="hidden md:table-cell">Email</th>
+          <th className="hidden md:table-cell">E-mail</th>
           <th className="hidden lg:table-cell">Telefone</th>
           <th className="hidden text-center sm:table-cell">Pendências</th>
           <th className="text-center">Detalhes</th>

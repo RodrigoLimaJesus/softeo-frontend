@@ -21,12 +21,18 @@ export default function AppProvider({ children }: IReactProps) {
     }
   });
 
+  function addNewClient(client: IClient) {
+    setAllClients((prev) => [...prev, client]);
+  }
+
   function handleOpenMenu() {
     setOpenMenu((prev) => !prev);
   }
 
   return (
-    <AppContext.Provider value={{ allClients, openMenu, handleOpenMenu }}>
+    <AppContext.Provider
+      value={{ allClients, openMenu, handleOpenMenu, addNewClient }}
+    >
       {children}
     </AppContext.Provider>
   );
