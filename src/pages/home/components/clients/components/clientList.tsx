@@ -1,11 +1,13 @@
 import { MdInfoOutline } from 'react-icons/md';
-import { useAppContext } from '../../../context/appContext';
+import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../../../../context/appContext';
 
 export default function ClientList() {
   const { allClients } = useAppContext();
+  const navigate = useNavigate();
 
   return (
-    <table className="table-auto my-8 w-full">
+    <table className="table-auto w-full my-4">
       <thead>
         <tr className="text-left">
           <th>#</th>
@@ -16,21 +18,22 @@ export default function ClientList() {
       </thead>
 
       <tbody>
-        {allClients.map((patient, index) => (
-          <tr key={patient.id}>
+        {allClients.map((client, index) => (
+          <tr key={client.id}>
             <td className="pr-5 max-w-[4rem] truncate">{index + 1}</td>
-            <td className="pr-3 max-w-[9rem] truncate">{patient.name}</td>
+            <td className="pr-3 max-w-[9rem] truncate">{client.name}</td>
             <td className="hidden text-white">
-              {patient.installments?.some(
-                ({ itsPaid }) => itsPaid === false,
-              ) ? (
+              {client.installments?.some(({ itsPaid }) => itsPaid === false) ? (
                 <span className="bg-red-500 p-1 rounded-lg">Sim</span>
               ) : (
                 <span className="bg-green-500 p-1 rounded-lg">Não</span>
               )}
             </td>
             <td>
-              <button className="p-3">
+              <button
+                className="p-3"
+                onClick={() => navigate(`/client/${client.id}`)}
+              >
                 <MdInfoOutline />
               </button>
             </td>

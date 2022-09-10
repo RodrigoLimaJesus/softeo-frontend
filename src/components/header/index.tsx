@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { FaSyringe } from 'react-icons/fa';
 import { MdOutlineMenu, MdOutlineMenuOpen } from 'react-icons/md';
+import { useAppContext } from '../../context/appContext';
 
 export default function Header() {
-  const [openMenu, setOpenMenu] = useState(false);
+  const { openMenu, handleOpenMenu } = useAppContext();
 
   return (
     <header
@@ -14,7 +14,7 @@ export default function Header() {
       flex items-center
       "
     >
-      <button className="text-2xl" onClick={() => setOpenMenu((prev) => !prev)}>
+      <button className="text-2xl" onClick={handleOpenMenu}>
         {openMenu ? <MdOutlineMenuOpen /> : <MdOutlineMenu />}
       </button>
 

@@ -1,12 +1,23 @@
+import { Route, Routes } from 'react-router-dom';
 import Header from './components/header';
-import Patients from './components/patients';
+import SideBar from './components/sideBar';
+import ClientDetails from './pages/clientDetails';
+import Home from './pages/home';
 
 export default function App() {
   return (
     <div>
-      <Header />
-      <hr />
-      <Patients />
+      <SideBar />
+      <div>
+        <Header />
+        <hr />
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/client/:id" element={<ClientDetails />} />
+          </Routes>
+        </div>
+      </div>
     </div>
   );
 }

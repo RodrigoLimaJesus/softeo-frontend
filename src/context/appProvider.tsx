@@ -7,6 +7,7 @@ import { AppContext } from './appContext';
 export default function AppProvider({ children }: IReactProps) {
   const [allClients, setAllClients] = useState<IClient[]>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   useEffect(() => {
     async function getInitialFetchs() {
@@ -20,7 +21,13 @@ export default function AppProvider({ children }: IReactProps) {
     }
   });
 
+  function handleOpenMenu() {
+    setOpenMenu((prev) => !prev);
+  }
+
   return (
-    <AppContext.Provider value={{ allClients }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ allClients, openMenu, handleOpenMenu }}>
+      {children}
+    </AppContext.Provider>
   );
 }
