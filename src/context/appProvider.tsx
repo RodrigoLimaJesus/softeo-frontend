@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import IClient from '../interfaces/client';
+import IInstallment from '../interfaces/installment';
 import IReactProps from '../interfaces/reactProps';
 import { getAllClients } from '../services/clients';
 import { AppContext } from './appContext';
@@ -19,7 +20,7 @@ export default function AppProvider({ children }: IReactProps) {
     if (!isMounted) {
       getInitialFetchs();
     }
-  });
+  }, [isMounted]);
 
   function addNewClient(client: IClient) {
     setAllClients((prev) => [...prev, client]);
@@ -29,9 +30,40 @@ export default function AppProvider({ children }: IReactProps) {
     setOpenMenu((prev) => !prev);
   }
 
+  function handleUpdatedPayment(installment: IInstallment) {
+    const { clientId, id } = installment;
+
+    const updatedClients = allClients.map((client) => {
+      if (client.id === clientId) {
+        return {
+          ...client,
+          installments: client.installments?.map((oldInstallment) => {
+            if (oldInstallment.id === id) {
+              return installment;
+            }
+            return oldInstallment;
+          }),
+        };
+      }
+      return client;
+    });
+
+    setAllClients(updatedClients);
+  }
+
+  useEffect(() => {
+    console.log(allClients);
+  }, [allClients]);
+
   return (
     <AppContext.Provider
-      value={{ allClients, openMenu, handleOpenMenu, addNewClient }}
+      value={{
+        allClients,
+        openMenu,
+        handleOpenMenu,
+        addNewClient,
+        handleUpdatedPayment,
+      }}
     >
       {children}
     </AppContext.Provider>
