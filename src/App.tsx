@@ -7,9 +7,9 @@ import Home from './pages/home';
 
 export default function App() {
   return (
-    <div>
+    <div className="flex">
       <SideBar />
-      <div>
+      <div className="w-full overflow-auto">
         <Header />
         <hr />
         <div>

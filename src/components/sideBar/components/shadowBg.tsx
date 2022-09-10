@@ -10,6 +10,7 @@ export default function ShadowBg() {
       bg-black/50
       transition-all
       duration-300
+      md:hidden
       `}
       onClick={handleOpenMenu}
     />

@@ -18,9 +18,10 @@ export default function SideBar() {
 
       <div
         className={`
-        fixed top-0 left-0
-        h-screen
-        ${openMenu ? 'w-[70vw]' : 'w-0'}
+        fixed top-0 left-0 md:relative
+        ${openMenu ? 'h-screen' : 'h-0'}
+        ${openMenu ? 'w-[50vw] md:w-[25vw] lg:w-[15vw]' : 'w-0'}
+        
         bg-containerBlue
         text-white
         transition-all
@@ -29,7 +30,9 @@ export default function SideBar() {
         `}
       >
         <div>
-          <Header />
+          <div className="md:hidden">
+            <Header />
+          </div>
 
           <div className="flex justify-center text-6xl my-4">
             <MdOutlineAccountCircle />

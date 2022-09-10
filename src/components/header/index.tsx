@@ -10,7 +10,7 @@ export default function Header() {
       className="
       font-bold text-containerBlue
       bg-containerWhite
-      p-3
+      p-3 md:p-5
       flex items-center
       "
     >
@@ -19,7 +19,9 @@ export default function Header() {
       </button>
 
       <div className="flex items-center">
-        <h1 className="ml-3 mr-2 text-xl">Érica Odontologia</h1>
+        <h1 className="ml-3 mr-2 text-xl md:text-2xl lg:text-3xl">
+          Érica Odontologia
+        </h1>
         <FaSyringe />
       </div>
     </header>
