@@ -11,38 +11,40 @@ export default function Installments({
       <span>Nenhuma parcela registrada ainda.</span>
     </div>
   ) : (
-    <table className="table-auto w-full my-4">
-      <thead>
-        <tr className="text-left border border-gray-400 p-1">
-          <th className="p-2">Valor</th>
-          <th>Vencimento</th>
-          <th>Status</th>
-          <th>Pagar</th>
-        </tr>
-      </thead>
+    <div className="max-h-[70vh] overflow-auto">
+      <table className="table-auto w-full my-4">
+        <thead>
+          <tr className="text-left border border-gray-400 p-1">
+            <th className="p-2">Valor</th>
+            <th>Vencimento</th>
+            <th>Status</th>
+            <th>Pagar</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        {installments.map((installment) => {
-          const date = new Date(installment.paymentDate);
-          const now = new Date();
+        <tbody>
+          {installments.map((installment) => {
+            const date = new Date(installment.paymentDate);
+            const now = new Date();
 
-          const isLate = date < now;
-          const isPaid = installment.itsPaid;
+            const isLate = date < now;
+            const isPaid = installment.itsPaid;
 
-          const adjustDay = date.setDate(date.getDate() + 1);
-          const strDate = new Date(adjustDay).toLocaleDateString();
+            const adjustDay = date.setDate(date.getDate() + 1);
+            const strDate = new Date(adjustDay).toLocaleDateString();
 
-          return (
-            <InstallmentLine
-              key={installment.id}
-              installment={installment}
-              isLate={isLate}
-              isPaid={isPaid}
-              strDate={strDate}
-            />
-          );
-        })}
-      </tbody>
-    </table>
+            return (
+              <InstallmentLine
+                key={installment.id}
+                installment={installment}
+                isLate={isLate}
+                isPaid={isPaid}
+                strDate={strDate}
+              />
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }
