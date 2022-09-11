@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import IInstallment from '../../interfaces/installment';
 import InstallmentLine from './components/installmentLine';
+import Invoicing from './components/invoicing';
 
 export default function Installments({
   installments = [],
@@ -133,6 +134,8 @@ export default function Installments({
           </div>
         </div>
       </div>
+
+      <Invoicing installments={installments} />
 
       <div className="max-h-[70vh] overflow-auto my-4">
         <table className="table-auto w-full">
