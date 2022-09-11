@@ -27,7 +27,7 @@ export default function Clients() {
 
       <FormCreateClient showCreateForm={showCreateForm} />
 
-      <div className="overflow-auto">
+      <div className="overflow-auto max-h-[70vh]">
         {allClients.length === 0 ? (
           <h2 className="text-center my-5">Você não possui nenhum paciente.</h2>
         ) : (

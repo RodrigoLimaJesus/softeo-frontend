@@ -9,7 +9,7 @@ export default function SideBar() {
   const { openMenu, handleOpenMenu } = useAppContext();
   const links = [
     { id: useId(), path: '/', label: 'Home' },
-    { id: useId(), path: '/client', label: 'Cliente' },
+    { id: useId(), path: '/client', label: 'Clientes' },
   ];
 
   return (

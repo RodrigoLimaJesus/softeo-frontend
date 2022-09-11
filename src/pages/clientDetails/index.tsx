@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Installments from '../../components/installments';
 import IClient from '../../interfaces/client';
 import { getClientById } from '../../services/clients';
 import ClientInfo from './components/clientInfo';
-import InstallmentInfo from './components/installmentInfo';
+import FormCreateInstallments from './components/formCreateInstallments';
 
 export default function ClientDetails() {
   const { id } = useParams();
@@ -31,6 +32,12 @@ export default function ClientDetails() {
     return setIsMounted(true);
   }, [id, isMounted, navigate]);
 
+  function handleNewInstallments(updatedData: IClient | {}) {
+    if ('id' in updatedData) {
+      setClientDetail(updatedData);
+    }
+  }
+
   return showError ? (
     <div>error</div>
   ) : (
@@ -53,7 +60,9 @@ export default function ClientDetails() {
           </button>
         </div>
 
-        <InstallmentInfo installments={clientDetail.installments} />
+        <FormCreateInstallments handleNewInstallments={handleNewInstallments} />
+
+        <Installments installments={clientDetail.installments} />
       </div>
     </div>
   );

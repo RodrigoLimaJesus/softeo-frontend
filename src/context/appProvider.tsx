@@ -51,10 +51,6 @@ export default function AppProvider({ children }: IReactProps) {
     setAllClients(updatedClients);
   }
 
-  useEffect(() => {
-    console.log(allClients);
-  }, [allClients]);
-
   return (
     <AppContext.Provider
       value={{

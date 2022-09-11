@@ -8,3 +8,11 @@ export default interface IInstallment {
   paymentDate: Date;
   itsPaid: boolean;
 }
+
+export interface IBodyCreateInstallment {
+  clientId: number;
+  startDate: string;
+  price: number;
+  quantity: number;
+  intervalDay: number;
+}

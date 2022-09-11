@@ -1,7 +1,7 @@
-import IInstallment from '../../../interfaces/installment';
-import InstallmentLine from './installmentLine';
+import IInstallment from '../../interfaces/installment';
+import InstallmentLine from './components/installmentLine';
 
-export default function InstallmentInfo({
+export default function Installments({
   installments = [],
 }: {
   installments: IInstallment[] | undefined;
