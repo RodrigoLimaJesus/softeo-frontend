@@ -119,7 +119,6 @@ export default function FormCreateInstallments({
             type="date"
             className="border border-black rounded p-1 m-1 disabled:text-gray-400"
             required
-            maxLength={3}
             max="9999-12-31"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
