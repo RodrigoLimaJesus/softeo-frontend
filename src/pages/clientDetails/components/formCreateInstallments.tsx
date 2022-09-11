@@ -7,8 +7,10 @@ import { createInstallment } from '../../../services/installments';
 
 export default function FormCreateInstallments({
   handleNewInstallments,
+  showCreateForm,
 }: {
   handleNewInstallments: (data: IClient | {}) => void;
+  showCreateForm: boolean;
 }) {
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -54,6 +56,10 @@ export default function FormCreateInstallments({
       if ('count' in response) {
         const updatedData = await getClientById(clientId);
         handleNewInstallments(updatedData);
+        setPrice('');
+        setQuantity('');
+        setIntervalDay('30');
+        setCheckToday(true);
       }
     }
   }
@@ -62,14 +68,13 @@ export default function FormCreateInstallments({
     <form
       className={`
       overflow-hidden
-      ${true ? 'h-auto' : 'h-0'}
-      flex flex-col items-center
-      border rounded-2xl border-gray-400
-      my-3
+      ${showCreateForm ? 'h-auto my-4 p-3 border' : 'h-0 m-0 p-0 border-0'}
+      rounded-2xl border-gray-400
+      flex flex-col
       `}
       onSubmit={handleSubmit}
     >
-      <label>
+      <label className="my-2">
         Valor das parcelas:
         <input
           type="number"
@@ -82,7 +87,7 @@ export default function FormCreateInstallments({
         />
       </label>
 
-      <label>
+      <label className="my-2">
         Quantidade de parcelas:
         <input
           type="number"
@@ -94,7 +99,7 @@ export default function FormCreateInstallments({
         />
       </label>
 
-      <label>
+      <label className="my-2">
         Intervalo entre os dias de vencimento:
         <input
           type={'number'}
@@ -108,11 +113,11 @@ export default function FormCreateInstallments({
       </label>
 
       <div>
-        <label>
+        <label className="my-2">
           Data base para os intervalos:
           <input
             type="date"
-            className="border border-black rounded p-1 m-1"
+            className="border border-black rounded p-1 m-1 disabled:text-gray-400"
             required
             maxLength={3}
             max="9999-12-31"
@@ -122,8 +127,9 @@ export default function FormCreateInstallments({
           />
         </label>
 
-        <label>
+        <label className="my-2">
           <input
+            className="mx-1"
             type={'checkbox'}
             checked={checkToday}
             onChange={() => setCheckToday(!checkToday)}
@@ -132,7 +138,19 @@ export default function FormCreateInstallments({
         </label>
       </div>
 
-      <button>Criar</button>
+      <button
+        type="submit"
+        className="
+        transition
+        bg-containerBlue hover:bg-containerBlue/75
+        my-4 py-2 px-6
+        text-white font-bold
+        rounded-lg
+        self-center
+        "
+      >
+        Criar
+      </button>
     </form>
   );
 }

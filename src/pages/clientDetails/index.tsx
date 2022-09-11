@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Installments from '../../components/installments';
 import IClient from '../../interfaces/client';
 import { getClientById } from '../../services/clients';
@@ -12,6 +12,7 @@ export default function ClientDetails() {
   const [clientDetail, setClientDetail] = useState<IClient>({} as IClient);
   const [isMounted, setIsMounted] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(false);
 
   useEffect(() => {
     async function getClientData() {
@@ -39,7 +40,12 @@ export default function ClientDetails() {
   }
 
   return showError ? (
-    <div>error</div>
+    <div className="flex flex-col items-center my-8">
+      <h2 className="text-lg">Nenhum cliente encontrado.</h2>
+      <NavLink to="/" className="text-sky-600 hover:underline">
+        Voltar ao início
+      </NavLink>
+    </div>
   ) : (
     <div className="flex flex-col m-3">
       <ClientInfo clientDetail={clientDetail} />
@@ -55,12 +61,16 @@ export default function ClientDetails() {
           p-1 px-2
           rounded-sm
           text-sm md:text-base"
+            onClick={() => setShowCreateForm((prev) => !prev)}
           >
             Nova
           </button>
         </div>
 
-        <FormCreateInstallments handleNewInstallments={handleNewInstallments} />
+        <FormCreateInstallments
+          handleNewInstallments={handleNewInstallments}
+          showCreateForm={showCreateForm}
+        />
 
         <Installments installments={clientDetail.installments} />
       </div>

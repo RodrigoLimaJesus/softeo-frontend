@@ -64,9 +64,10 @@ export default function FormCreateClient({
       onSubmit={handleSubmit}
       className={`
       overflow-hidden
-      ${showCreateForm ? 'h-auto' : 'h-0'}
+      ${showCreateForm ? 'h-auto border' : 'h-0 border-0'}
+      border-gray-400
       flex flex-col items-center
-      border rounded-2xl border-gray-400
+      rounded-2xl
       my-3
       `}
     >
