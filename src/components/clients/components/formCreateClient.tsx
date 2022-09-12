@@ -147,6 +147,7 @@ export default function FormCreateClient({
 
       <button
         type="submit"
+        disabled={isLoading}
         className={`
         transition
         disabled:bg-slate-400
