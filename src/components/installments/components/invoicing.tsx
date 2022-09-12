@@ -53,14 +53,15 @@ export default function Invoicing({
 
   return (
     <div className="flex justify-around my-3">
-      {ammounts.map(({ bgColor, label, price }) => (
+      {ammounts.map(({ id, bgColor, label, price }) => (
         <div
+          key={id}
           className={`
-        flex flex-col items-center
-        border border-black
-        font-bold ${bgColor}
-        px-2 py-1 rounded-lg
-        `}
+          flex flex-col items-center
+          border border-black
+          font-bold ${bgColor}
+          px-2 py-1 rounded-lg
+          `}
         >
           <span>{label}</span>
           <span className="max-w-[5rem] truncate" title={`${price}`}>

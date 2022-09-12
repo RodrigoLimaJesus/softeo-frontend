@@ -7,4 +7,5 @@ export default interface IContext {
   handleOpenMenu: () => void;
   addNewClient: (client: IClient) => void;
   handleUpdatedPayment: (installment: IInstallment) => void;
+  handleCreateInstallment: (client: IClient) => void;
 }

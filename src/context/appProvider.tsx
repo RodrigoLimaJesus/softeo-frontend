@@ -51,6 +51,17 @@ export default function AppProvider({ children }: IReactProps) {
     setAllClients(updatedClients);
   }
 
+  function handleCreateInstallment(updatedClient: IClient) {
+    const updatedClients = allClients.map((client) => {
+      if (client.id === updatedClient.id) {
+        return updatedClient;
+      }
+      return client;
+    });
+
+    setAllClients(updatedClients);
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -59,6 +70,7 @@ export default function AppProvider({ children }: IReactProps) {
         handleOpenMenu,
         addNewClient,
         handleUpdatedPayment,
+        handleCreateInstallment,
       }}
     >
       {children}

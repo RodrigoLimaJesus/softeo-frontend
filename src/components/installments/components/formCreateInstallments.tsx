@@ -1,24 +1,23 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import IClient from '../../../interfaces/client';
+import { useAppContext } from '../../../context/appContext';
 import { IBodyCreateInstallment } from '../../../interfaces/installment';
 import { getClientById } from '../../../services/clients';
 import { createInstallment } from '../../../services/installments';
 
 export default function FormCreateInstallments({
-  handleNewInstallments,
   showCreateForm,
 }: {
-  handleNewInstallments: (data: IClient | {}) => void;
   showCreateForm: boolean;
 }) {
+  const { id: clientId } = useParams();
+  const { handleCreateInstallment } = useAppContext();
+
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
   const [intervalDay, setIntervalDay] = useState('30');
   const [startDate, setStartDate] = useState('');
   const [checkToday, setCheckToday] = useState(true);
-
-  const { id: clientId } = useParams();
 
   useEffect(() => {
     if (checkToday) {
@@ -55,11 +54,13 @@ export default function FormCreateInstallments({
 
       if ('count' in response) {
         const updatedData = await getClientById(clientId);
-        handleNewInstallments(updatedData);
-        setPrice('');
-        setQuantity('');
-        setIntervalDay('30');
-        setCheckToday(true);
+        if ('id' in updatedData) {
+          handleCreateInstallment(updatedData);
+          setPrice('');
+          setQuantity('');
+          setIntervalDay('30');
+          setCheckToday(true);
+        }
       }
     }
   }
