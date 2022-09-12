@@ -14,6 +14,19 @@ export const getAllInstallments = async (): Promise<IInstallment[]> => {
   }
 };
 
+export const excludeInstallment = async (
+  id: string,
+): Promise<IInstallment | {}> => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/installment/${id}`);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {};
+  }
+};
+
 export const updatePaymentStatus = async (
   id: number,
   status: boolean,

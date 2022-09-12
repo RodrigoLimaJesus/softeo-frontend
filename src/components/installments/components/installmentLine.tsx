@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { IoTrashOutline } from 'react-icons/io5';
 import { MdInfoOutline } from 'react-icons/md';
+
 import { NavLink } from 'react-router-dom';
 import { useAppContext } from '../../../context/appContext';
 import IInstallment from '../../../interfaces/installment';
 import {
+  excludeInstallment,
   getAllInstallments,
   updatePaymentStatus,
 } from '../../../services/installments';
@@ -23,7 +26,7 @@ export default function InstallmentLine({
 }) {
   const [dynamicPaid, setDynamicPaid] = useState(isPaid);
   const [isLoading, setIsLoading] = useState(false);
-  const { handleUpdatedPayment } = useAppContext();
+  const { handleUpdatedPayment, handleDeleteInstallment } = useAppContext();
 
   async function handlePayment(id: number, status: boolean) {
     setIsLoading(true);
@@ -34,6 +37,15 @@ export default function InstallmentLine({
       setDynamicPaid(updatedInstallment.itsPaid);
     }
     setIsLoading(false);
+  }
+
+  async function handleDelete() {
+    const { id, clientId } = installment;
+    const deleteResponse = await excludeInstallment(String(id));
+
+    if ('id' in deleteResponse) {
+      handleDeleteInstallment(id, clientId);
+    }
   }
 
   return (
@@ -78,7 +90,11 @@ export default function InstallmentLine({
           </button>
         )}
       </td>
-      <td></td>
+      <td className="text-center">
+        <button onClick={handleDelete}>
+          <IoTrashOutline />
+        </button>
+      </td>
     </tr>
   );
 }

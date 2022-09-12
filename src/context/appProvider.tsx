@@ -80,6 +80,30 @@ export default function AppProvider({ children }: IReactProps) {
     setAllClients((prev) =>
       prev.filter((client) => Number(client.id) !== clientId),
     );
+
+    const updatedInstallments = allInstallments.filter(
+      (installment) => installment.clientId !== clientId,
+    );
+
+    setAllInstallments(updatedInstallments);
+  }
+
+  function handleDeleteInstallment(installmentId: number, clientId: number) {
+    setAllInstallments((prev) => prev.filter(({ id }) => id !== installmentId));
+
+    const updatedClients = allClients.map((client) => {
+      if (clientId === client.id) {
+        return {
+          ...client,
+          installments: client.installments?.filter(
+            ({ id }) => id !== installmentId,
+          ),
+        };
+      }
+      return client;
+    });
+
+    setAllClients(updatedClients);
   }
 
   return (
@@ -93,6 +117,7 @@ export default function AppProvider({ children }: IReactProps) {
         handleUpdatedPayment,
         handleCreateInstallment,
         handleDeleteClient,
+        handleDeleteInstallment,
       }}
     >
       {children}

@@ -16,4 +16,5 @@ export default interface IContext {
     installments: IInstallment[],
   ) => void;
   handleDeleteClient: (clientId: number) => void;
+  handleDeleteInstallment: (installmentId: number, clientId: number) => void;
 }

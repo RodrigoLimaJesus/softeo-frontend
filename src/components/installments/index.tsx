@@ -162,7 +162,10 @@ export default function Installments({
                   {isInHome ? (
                     <th className="text-center">Usuário</th>
                   ) : (
-                    <th>Pagar</th>
+                    <>
+                      <th>Pagar</th>
+                      <th className="text-center">Deletar</th>
+                    </>
                   )}
                 </tr>
               </thead>

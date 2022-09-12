@@ -1,7 +1,7 @@
 import IClient from './client';
 
 export default interface IInstallment {
-  id?: number;
+  id: number;
   clientId: number;
   client?: IClient;
   price: number;
