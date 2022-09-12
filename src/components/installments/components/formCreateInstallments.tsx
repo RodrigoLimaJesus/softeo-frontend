@@ -3,7 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useAppContext } from '../../../context/appContext';
 import { IBodyCreateInstallment } from '../../../interfaces/installment';
 import { getClientById } from '../../../services/clients';
-import { createInstallment } from '../../../services/installments';
+import {
+  createInstallment,
+  getAllInstallments,
+} from '../../../services/installments';
 
 export default function FormCreateInstallments({
   showCreateForm,
@@ -53,9 +56,13 @@ export default function FormCreateInstallments({
       const response = await createInstallment(createInfo);
 
       if ('count' in response) {
-        const updatedData = await getClientById(clientId);
+        const [updatedData, installments] = await Promise.all([
+          getClientById(clientId),
+          getAllInstallments(),
+        ]);
+
         if ('id' in updatedData) {
-          handleCreateInstallment(updatedData);
+          handleCreateInstallment(updatedData, installments);
           setPrice('');
           setQuantity('');
           setIntervalDay('30');
@@ -93,6 +100,7 @@ export default function FormCreateInstallments({
         <input
           type="number"
           min={1}
+          required
           className="border border-black rounded p-1 m-1"
           placeholder="Quantidade de parcelas..."
           value={quantity}

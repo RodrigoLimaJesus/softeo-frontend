@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { MdInfoOutline } from 'react-icons/md';
+import { NavLink } from 'react-router-dom';
 import { useAppContext } from '../../../context/appContext';
 import IInstallment from '../../../interfaces/installment';
 import { updatePaymentStatus } from '../../../services/installments';
@@ -8,11 +10,13 @@ export default function InstallmentLine({
   strDate,
   isPaid,
   isLate,
+  isInHome,
 }: {
   installment: IInstallment;
   strDate: string;
   isPaid: boolean;
   isLate: boolean;
+  isInHome: boolean;
 }) {
   const [dynamicPaid, setDynamicPaid] = useState(isPaid);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,8 +50,16 @@ export default function InstallmentLine({
           <span className="p-1 bg-orange-400 rounded-md">Pendente</span>
         )}
       </td>
+
       <td>
-        {isLoading ? (
+        {isInHome ? (
+          <NavLink
+            className="flex justify-center text-xl"
+            to={`/client/${installment.clientId}`}
+          >
+            <MdInfoOutline />
+          </NavLink>
+        ) : isLoading ? (
           <div className="animate-pulse bg-black/50 w-12 h-4 rounded" />
         ) : (
           <button
@@ -62,6 +74,7 @@ export default function InstallmentLine({
           </button>
         )}
       </td>
+      <td></td>
     </tr>
   );
 }

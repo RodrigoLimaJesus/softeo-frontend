@@ -3,17 +3,23 @@ import IClient from '../interfaces/client';
 import IInstallment from '../interfaces/installment';
 import IReactProps from '../interfaces/reactProps';
 import { getAllClients } from '../services/clients';
+import { getAllInstallments } from '../services/installments';
 import { AppContext } from './appContext';
 
 export default function AppProvider({ children }: IReactProps) {
   const [allClients, setAllClients] = useState<IClient[]>([]);
+  const [allInstallments, setAllInstallments] = useState<IInstallment[]>([]);
   const [isMounted, setIsMounted] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
 
   useEffect(() => {
     async function getInitialFetchs() {
-      const clients = await getAllClients();
+      const [clients, installments] = await Promise.all([
+        getAllClients(),
+        getAllInstallments(),
+      ]);
       setAllClients(clients);
+      setAllInstallments(installments);
       setIsMounted(true);
     }
 
@@ -51,7 +57,10 @@ export default function AppProvider({ children }: IReactProps) {
     setAllClients(updatedClients);
   }
 
-  function handleCreateInstallment(updatedClient: IClient) {
+  function handleCreateInstallment(
+    updatedClient: IClient,
+    newInstallments: IInstallment[],
+  ) {
     const updatedClients = allClients.map((client) => {
       if (client.id === updatedClient.id) {
         return updatedClient;
@@ -60,12 +69,14 @@ export default function AppProvider({ children }: IReactProps) {
     });
 
     setAllClients(updatedClients);
+    setAllInstallments(newInstallments);
   }
 
   return (
     <AppContext.Provider
       value={{
         allClients,
+        allInstallments,
         openMenu,
         handleOpenMenu,
         addNewClient,
