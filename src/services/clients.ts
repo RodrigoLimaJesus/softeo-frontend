@@ -13,6 +13,17 @@ export const getAllClients = async (): Promise<IClient[]> => {
   }
 };
 
+export const excludeClient = async (id: string): Promise<IClient | {}> => {
+  try {
+    const { data } = await axios.delete(`${BASE_URL}/client/${id}`);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {};
+  }
+};
+
 export const getClientById = async (
   id: string | undefined,
 ): Promise<IClient | {}> => {

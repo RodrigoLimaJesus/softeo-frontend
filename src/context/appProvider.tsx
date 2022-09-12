@@ -76,6 +76,12 @@ export default function AppProvider({ children }: IReactProps) {
     setAllInstallments(newInstallments);
   }
 
+  function handleDeleteClient(clientId: number) {
+    setAllClients((prev) =>
+      prev.filter((client) => Number(client.id) !== clientId),
+    );
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -86,6 +92,7 @@ export default function AppProvider({ children }: IReactProps) {
         addNewClient,
         handleUpdatedPayment,
         handleCreateInstallment,
+        handleDeleteClient,
       }}
     >
       {children}
