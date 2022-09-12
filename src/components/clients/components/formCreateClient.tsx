@@ -13,9 +13,12 @@ export default function FormCreateClient({
   const [phone, setPhone] = useState('');
   const [cpf, setCpf] = useState('');
   const [showEmailErr, SetShowEmailErr] = useState(false);
+  const [showNameErr, SetShowNameErr] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleName(e: React.ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
+    SetShowNameErr(false);
   }
 
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
@@ -46,7 +49,10 @@ export default function FormCreateClient({
 
     if (!email.includes('.com')) {
       SetShowEmailErr(true);
+    } else if (name.length <= 3) {
+      SetShowNameErr(true);
     } else {
+      setIsLoading(true);
       const newClient = await createClient(name, email, phone, cpf);
 
       if ('id' in newClient) {
@@ -56,6 +62,8 @@ export default function FormCreateClient({
         setCpf('');
         addNewClient(newClient);
       }
+
+      setIsLoading(false);
     }
   }
 
@@ -74,14 +82,21 @@ export default function FormCreateClient({
       <div className="flex flex-row flex-wrap justify-center my-4">
         <label className="flex justify-between items-center w-full m-3 sm:w-auto">
           Nome:
-          <input
-            placeholder="Nome"
-            className="border border-black rounded p-1 m-1"
-            required
-            minLength={3}
-            value={name}
-            onChange={handleName}
-          />
+          <div className="relative">
+            <input
+              placeholder="Nome"
+              className="border border-black rounded p-1 m-1"
+              required
+              minLength={3}
+              value={name}
+              onChange={handleName}
+            />
+            {showNameErr && (
+              <span className="absolute -bottom-5 left-2 text-sm text-red-500">
+                Insira um nome maior que 3 letras.
+              </span>
+            )}
+          </div>
         </label>
 
         <label className="flex justify-between items-center w-full m-3 sm:w-auto">
@@ -132,7 +147,7 @@ export default function FormCreateClient({
 
       <button
         type="submit"
-        className="
+        className={`
         transition
         disabled:bg-slate-400
         bg-green-400 hover:bg-green-600
@@ -140,7 +155,8 @@ export default function FormCreateClient({
         px-4 py-2 my-3
         rounded-md
         border border-black
-        "
+        ${isLoading && 'animate-pulse'}
+        `}
       >
         Cadastrar
       </button>

@@ -21,6 +21,7 @@ export default function FormCreateInstallments({
   const [intervalDay, setIntervalDay] = useState('30');
   const [startDate, setStartDate] = useState('');
   const [checkToday, setCheckToday] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (checkToday) {
@@ -45,6 +46,7 @@ export default function FormCreateInstallments({
     e.preventDefault();
 
     if (clientId) {
+      setIsLoading(true);
       const createInfo: IBodyCreateInstallment = {
         clientId: Number(clientId),
         price: Number(price),
@@ -69,6 +71,7 @@ export default function FormCreateInstallments({
           setCheckToday(true);
         }
       }
+      setIsLoading(false);
     }
   }
 
@@ -148,14 +151,16 @@ export default function FormCreateInstallments({
 
       <button
         type="submit"
-        className="
+        disabled={isLoading}
+        className={`
         transition
         bg-containerBlue hover:bg-containerBlue/75
         my-4 py-2 px-6
         text-white font-bold
         rounded-lg
         self-center
-        "
+        ${isLoading && 'animate-pulse'}
+        `}
       >
         Criar
       </button>

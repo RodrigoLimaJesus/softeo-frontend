@@ -16,10 +16,12 @@ export default function ClientInfo({
   clientDetail: IClient;
 }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { handleDeleteClient } = useAppContext();
 
   async function handleDelete() {
+    setIsLoading(true);
     const { id } = clientDetail;
     const deleteResponse = await excludeClient(String(id));
 
@@ -27,6 +29,7 @@ export default function ClientInfo({
       handleDeleteClient(id);
       navigate('/');
     }
+    setIsLoading(false);
   }
 
   return (
@@ -54,20 +57,25 @@ export default function ClientInfo({
       <div className="flex flex-col justify-center">
         <button
           onClick={() => setConfirmDelete(true)}
-          className="
+          className={`
           bg-red-400 hover:bg-red-600
           transition
           text-white font-bold
           px-4 py-2 my-2
           rounded-md
-          "
+          ${isLoading && 'animate-pulse'}
+          `}
         >
           Exluir cliente
         </button>
         {confirmDelete && (
           <div>
             <span>Tem certeza?</span>
-            <button className="underline mx-2" onClick={handleDelete}>
+            <button
+              disabled={isLoading}
+              className="underline mx-2"
+              onClick={handleDelete}
+            >
               Sim
             </button>
             <button
