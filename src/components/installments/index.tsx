@@ -81,19 +81,20 @@ export default function Installments({
   }, [installments, checkLate, checkPaid, checkPending, endDate, startDate]);
 
   return (
-    <div>
+    <div className="bg-containerWhite rounded-lg p-3 my-4 md:p-5 md:px-16 lg:px-24">
       <div className="my-6 sm:mx-10 md:mx-14 lg:mx-24">
         <div className="font-bold flex items-center justify-between">
           <h2 className="md:text-xl">MINHAS PARCELAS</h2>
           {!isInHome && (
             <button
               className="
-          transition
-          bg-containerBlue hover:bg-containerBlue/75
-          text-white
-          p-1 px-2
-          rounded-sm
-          text-sm md:text-base"
+              transition
+              bg-containerBlue hover:bg-containerBlue/75
+              text-white
+              p-1 px-2
+              rounded-sm
+              text-sm md:text-base
+              "
               onClick={() => setShowCreateForm((prev) => !prev)}
             >
               Nova

@@ -36,7 +36,10 @@ export default function AppProvider({ children }: IReactProps) {
     setOpenMenu((prev) => !prev);
   }
 
-  function handleUpdatedPayment(installment: IInstallment) {
+  function handleUpdatedPayment(
+    installment: IInstallment,
+    updatedInstallments: IInstallment[],
+  ) {
     const { clientId, id } = installment;
 
     const updatedClients = allClients.map((client) => {
@@ -55,6 +58,7 @@ export default function AppProvider({ children }: IReactProps) {
     });
 
     setAllClients(updatedClients);
+    setAllInstallments(updatedInstallments);
   }
 
   function handleCreateInstallment(

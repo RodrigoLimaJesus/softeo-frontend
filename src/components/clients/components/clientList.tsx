@@ -20,7 +20,7 @@ export default function ClientList() {
             <th className="hidden md:table-cell">E-mail</th>
             <th className="hidden lg:table-cell">Telefone</th>
             <th className="hidden text-center sm:table-cell">Pendências</th>
-            <th className="text-center">Detalhes</th>
+            <th className="text-center ">Detalhes</th>
           </tr>
         </thead>
 
@@ -30,12 +30,14 @@ export default function ClientList() {
           {filtredList.map((client, index) => (
             <tr key={client.id} className="border-2">
               <td className="p-2 max-w-[4rem] truncate">{index + 1}</td>
-              <td className="max-w-[1px] truncate">{client.name}</td>
-              <td className="hidden max-w-[9rem] truncate md:table-cell">
+              <td className="max-w-0 truncate overflow-hidden">
+                {client.name}
+              </td>
+              <td className="hidden max-w-0 truncate md:table-cell">
                 {client.email}
               </td>
               <td className="hidden lg:table-cell">{client.cellNumber}</td>
-              <td className="hidden text-white text-center sm:table-cell">
+              <td className="hidden max-w-[2rem] text-white text-center sm:table-cell">
                 {client.installments?.some(
                   ({ itsPaid }) => itsPaid === false,
                 ) ? (

@@ -52,7 +52,12 @@ export default function Filters({
       <td>
         <input
           placeholder="Nome..."
-          className="p-1 my-2 border border-black rounded-md"
+          className="
+          p-1
+          my-2
+          border border-black
+          rounded-md
+          "
           value={nameFilter}
           onChange={(e) => setNameFilter(e.target.value)}
         />
@@ -67,7 +72,7 @@ export default function Filters({
         />
       </td>
 
-      <td className="hidden lg:table-cell">
+      <td className="hidden w- lg:table-cell">
         <input
           placeholder="Telefone..."
           className="p-1 my-2 border border-black rounded-md"

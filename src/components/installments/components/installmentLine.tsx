@@ -3,7 +3,10 @@ import { MdInfoOutline } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import { useAppContext } from '../../../context/appContext';
 import IInstallment from '../../../interfaces/installment';
-import { updatePaymentStatus } from '../../../services/installments';
+import {
+  getAllInstallments,
+  updatePaymentStatus,
+} from '../../../services/installments';
 
 export default function InstallmentLine({
   installment,
@@ -24,12 +27,13 @@ export default function InstallmentLine({
 
   async function handlePayment(id: number, status: boolean) {
     setIsLoading(true);
-    const response = await updatePaymentStatus(id, !status);
-    setIsLoading(false);
-    if ('id' in response) {
-      handleUpdatedPayment(response);
-      setDynamicPaid(response.itsPaid);
+    const updatedInstallment = await updatePaymentStatus(id, !status);
+    if ('id' in updatedInstallment) {
+      const allInstallments = await getAllInstallments();
+      handleUpdatedPayment(updatedInstallment, allInstallments);
+      setDynamicPaid(updatedInstallment.itsPaid);
     }
+    setIsLoading(false);
   }
 
   return (

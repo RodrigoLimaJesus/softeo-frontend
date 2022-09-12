@@ -8,7 +8,7 @@ export default function Clients() {
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   return (
-    <div className="bg-containerWhite rounded-lg p-3 md:p-5 md:px-16 lg:px-24">
+    <div className="bg-containerWhite rounded-lg p-3 my-4 md:p-5 md:px-16 lg:px-24">
       <div className="font-bold flex items-center justify-between">
         <h2 className="md:text-xl">MEUS PACIENTES</h2>
         <button
