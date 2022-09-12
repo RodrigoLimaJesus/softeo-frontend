@@ -90,11 +90,13 @@ export default function InstallmentLine({
           </button>
         )}
       </td>
-      <td className="text-center">
-        <button onClick={handleDelete}>
-          <IoTrashOutline />
-        </button>
-      </td>
+      {!isInHome && (
+        <td className="text-center text-xl">
+          <button onClick={handleDelete}>
+            <IoTrashOutline />
+          </button>
+        </td>
+      )}
     </tr>
   );
 }
